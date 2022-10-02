@@ -22,6 +22,8 @@ app.get('/api/_v1/_books/search', async(req, res) => {
   let p = d.data
   if(f){
     let ft = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${q}&filter=${f}`)
+     res.setHeader('Content-Type', 'text/json'); 
+
     res.json({
       status:200,
       sortType: sort || "Not Found",
@@ -32,7 +34,9 @@ app.get('/api/_v1/_books/search', async(req, res) => {
   }
   if(sort){
     let s = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${q}&orderBy=${sort}`)
-    res.json({
+    res.setHeader('Content-Type', 'text/json'); 
+
+     res.json({
       status:200,
       sortType: sort,
       filterType: f || "Not Found",
@@ -42,6 +46,8 @@ app.get('/api/_v1/_books/search', async(req, res) => {
   }
   if(proj){
     let prj = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${q}&projection=${proj}`)
+    res.setHeader('Content-Type', 'text/json'); 
+
     res.json({
       status:200,
       sortType: sort || "Not Found",
@@ -50,6 +56,8 @@ app.get('/api/_v1/_books/search', async(req, res) => {
       message: prj.data
     })
   }
+  res.setHeader('Content-Type', 'text/json'); 
+
   res.json({status:200,sortType: "Not Found", filterType: "Not Found",projection:"Not Found",message: p})
 });
 
